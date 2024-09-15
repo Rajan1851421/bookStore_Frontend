@@ -14,7 +14,7 @@ function Banner() {
 
           {/* Left Side (Text and Form) */}
           <div className="order-2 md:order-1">
-            <h1 className="text-3xl font-bold pt-2 md:pt-10 mt-4 md:mt-14 w-full md:w-[75%]">
+            <h1 className="text-4xl font-bold pt-2 md:pt-10 mt-4 md:mt-14 w-full md:w-[80%]">
               Hello, Welcome here to learn something{" "}
               <span className="text-pink-600">new everyday!!</span>
             </h1>
@@ -33,7 +33,9 @@ function Banner() {
             </div>
             <button
               href="#_"
-              className="inline-flex mt-4 items-center justify-center px-5 py-3 text-base font-medium text-center text-indigo-100 border border-pink-500 rounded-lg shadow-sm cursor-pointer hover:text-white bg-gradient-to-br from-purple-500 via-indigo-500 to-pink-500"
+              className="inline-flex mt-14 items-center justify-center px-5 py-3 text-base font-medium text-center
+               text-indigo-100 border border-pink-500 rounded-lg shadow-sm cursor-pointer hover:text-white 
+               bg-gradient-to-br from-purple-500 via-indigo-500 to-pink-500"
             >
               <svg
                 className="w-5 h-5 mr-2"

@@ -6,9 +6,10 @@ import Footer from './components/Footer'
 
 function App() {
   return (
-    <div className='select-none'>
+    <div className='select-none bg-[#F5F5F4]'>
       <Navbar/>
-      <Banner/>      
+      <Banner/> 
+         
       <Footer/>
     
     </div>
