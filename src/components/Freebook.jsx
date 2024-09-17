@@ -1,35 +1,45 @@
 import React, { useEffect } from "react";
 import Glide from "@glidejs/glide";
-import list from "../../public/list"; // Adjust the path as necessary
+import { useDispatch, useSelector } from "react-redux";
+import { getAllBooks } from "../features/bookSlice";
 
 export default function CarouselControlsInside() {
-  useEffect(() => {
-    const slider = new Glide(".glide-01", {
-      type: "carousel",
-      focusAt: "center",
-      perView: 3,
-      autoplay: 3000,
-      animationDuration: 700,
-      gap: 24,
-      classNames: {
-        nav: {
-          active: "[&>*]:bg-wuiSlate-700",
-        },
-      },
-      breakpoints: {
-        1024: {
-          perView: 2,
-        },
-        640: {
-          perView: 1,
-        },
-      },
-    }).mount();
+  const dispatch = useDispatch();
+  const { All_Book, status, loading } = useSelector((state) => state.book);
 
-    return () => {
-      slider.destroy();
-    };
-  }, []);
+  useEffect(() => {
+    dispatch(getAllBooks());
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (All_Book && All_Book.length > 0) {
+      const slider = new Glide(".glide-01", {
+        type: "carousel",
+        focusAt: "center",
+        perView: 3,
+        autoplay: 3000,
+        animationDuration: 700,
+        gap: 24,
+        classNames: {
+          nav: {
+            active: "[&>*]:bg-wuiSlate-700",
+          },
+        },
+        breakpoints: {
+          1024: {
+            perView: 2,
+          },
+          640: {
+            perView: 1,
+          },
+        },
+      }).mount();
+
+      return () => {
+        slider.destroy();
+      };
+    }
+  }, [All_Book]);
 
   return (
     <>
@@ -37,38 +47,41 @@ export default function CarouselControlsInside() {
         <div className="glide-01 relative w-full bg-white text-gray-900 ">
           <div className="overflow-hidden" data-glide-el="track">
             <ul className="whitespace-no-wrap flex-no-wrap  relative flex w-full overflow-hidden p-0">
-              {list.map((item) => (
-                <li
-                  key={item.id}
-                  className="p-4 bg-white border border-gray-400 rounded-md "
-                >
-                  <img
-                    className="p-8 rounded-t-lg"
-                    src={item.image}
-                    alt="product image"
-                  />
-                  <p className="font-bold uppercase  ">
-                    {`Title: ${item.title.slice(0, 40)}`}{" "}
-                  </p>
-                  <div className="grid grid-cols-2">
-                  <span>{item.category} </span>
-                 
-
-                  </div>
-                  <div className="grid grid-cols-2">
-                  <p className="p-2 font-extrabold text-xl ">{`$ ${item.price}`}  </p>
-                  <p className="p-2 font-extrabold text-md ">{`${item.name}`}  </p>
-                  </div>
-                  <div className="flex justify-between items-center">
-                  <button className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                    Buy Now
-                  </button> <button className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                    Add to Cart
-                  </button>
-                  </div>
-                 
-                </li>
-              ))}
+              {All_Book &&
+                All_Book.map((item) => (
+                  <li
+                    key={item.id}
+                    className="p-4 bg-white border border-gray-400 rounded-md "
+                  >
+                    <img
+                      className="p-8 rounded-t-lg"
+                      src={item.image}
+                      alt="product image"
+                    />
+                    <p className="font-bold uppercase  ">
+                      {`Title: ${item.title.slice(0, 40)}`}{" "}
+                    </p>
+                    <div className="grid grid-cols-2">
+                      <span>{item.category} </span>
+                    </div>
+                    <div className="grid grid-cols-2">
+                      <p className="p-2 font-extrabold text-xl ">
+                        {`$ ${item.price}`}{" "}
+                      </p>
+                      <p className="p-2 font-extrabold text-md ">
+                        {`${item.name}`}{" "}
+                      </p>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <button className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                        Buy Now
+                      </button>{" "}
+                      <button className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                        Add to Cart
+                      </button>
+                    </div>
+                  </li>
+                ))}
             </ul>
           </div>
           <div

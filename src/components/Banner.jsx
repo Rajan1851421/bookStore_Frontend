@@ -1,7 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Freebook from "./Freebook";
+import  { useDispatch } from "react-redux"
+import { getAllBooks } from "../features/bookSlice";
 
 function Banner() {
+  const dispatch = useDispatch()
+  useEffect(()=>{
+    window.scrollTo(0,0)
+    dispatch(getAllBooks())
+  },[])
   return (
     <>
       <div className="bg-white text-gray-700">
