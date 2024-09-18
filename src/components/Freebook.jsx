@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Glide from "@glidejs/glide";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllBooks } from "../features/bookSlice";
@@ -6,13 +6,17 @@ import { getAllBooks } from "../features/bookSlice";
 export default function CarouselControlsInside() {
   const dispatch = useDispatch();
   const { All_Book, status, loading } = useSelector((state) => state.book);
+  const [freebook, setFreeBook] = useState([]);
 
   useEffect(() => {
     dispatch(getAllBooks());
+    const freebook = All_Book && All_Book.filter((book) => book.category === "Free");
+    // console.log("free:",freebook)
+    setFreeBook(freebook)
   }, [dispatch]);
 
   useEffect(() => {
-    if (All_Book && All_Book.length > 0) {
+    if (freebook && freebook.length > 0) {
       const slider = new Glide(".glide-01", {
         type: "carousel",
         focusAt: "center",
@@ -44,31 +48,43 @@ export default function CarouselControlsInside() {
   return (
     <>
       <div className=" px-10 bg-white">
+        <h2 className=" text-center text-xl md:text-4xl underline font-bold capitalize mb-4 mt-2 md:mt-1 ">
+          Our Free offer book
+        </h2>
         <div className="glide-01 relative w-full bg-white text-gray-900 ">
           <div className="overflow-hidden" data-glide-el="track">
-            <ul className="whitespace-no-wrap flex-no-wrap  relative flex w-full overflow-hidden p-0">
-              {All_Book &&
-                All_Book.map((item) => (
+            <ul className="whitespace-no-wrap flex-no-wrap  relative flex w-full overflow-hidden py-4">
+              {freebook &&
+                freebook.map((item) => (
                   <li
                     key={item.id}
-                    className="p-4 bg-white border border-gray-400 rounded-md "
+                    className="p-4 bg-white shadow-lg shadow-teal-500 rounded-md "
                   >
                     <img
-                      className="p-8 rounded-t-lg"
+                      className="p-2 w-32 h-32 object-cover mx-auto"
                       src={item.image}
                       alt="product image"
                     />
-                    <p className="font-bold uppercase  ">
-                      {`Title: ${item.title.slice(0, 40)}`}{" "}
+                    <p className="uppercase  ">
+                      {" "}
+                      Title :{" "}
+                      <span className="italic text-gray-500 ">
+                        {" "}
+                        {` ${item.title.slice(0, 30)}`}{" "}
+                      </span>{" "}
                     </p>
                     <div className="grid grid-cols-2">
-                      <span>{item.category} </span>
+                      {" "}
+                      <span>{item.category} </span>{" "}
                     </div>
                     <div className="grid grid-cols-2">
+                      {" "}
                       <p className="p-2 font-extrabold text-xl ">
+                        {" "}
                         {`$ ${item.price}`}{" "}
                       </p>
                       <p className="p-2 font-extrabold text-md ">
+                        {" "}
                         {`${item.name}`}{" "}
                       </p>
                     </div>
@@ -89,7 +105,7 @@ export default function CarouselControlsInside() {
             data-glide-el="controls"
           >
             <button
-              className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-slate-700 bg-white text-slate-700 transition duration-300 hover:border-slate-900 hover:text-slate-900 focus-visible:outline-none lg:h-12 lg:w-12"
+              className="inline-flex h-8 w-8 items-center bg-red-200 opacity-30 justify-center rounded-full border border-slate-700 bg-white text-slate-700 transition duration-300 hover:border-slate-900 hover:text-slate-900 focus-visible:outline-none lg:h-12 lg:w-12"
               data-glide-dir="<"
               aria-label="prev slide"
             >
@@ -110,7 +126,7 @@ export default function CarouselControlsInside() {
               </svg>
             </button>
             <button
-              className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-slate-700 bg-white/20 text-slate-700 transition duration-300 hover:border-slate-900 hover:text-slate-900 focus-visible:outline-none lg:h-12 lg:w-12"
+              className="inline-flex h-8 w-8 bg-red-200 items-center justify-center rounded-full border border-slate-700 bg-white/20 text-slate-700 transition duration-300 hover:border-slate-900 hover:text-slate-900 focus-visible:outline-none lg:h-12 lg:w-12"
               data-glide-dir=">"
               aria-label="next slide"
             >

@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import axios from 'axios'
+import { toast } from "react-toastify";
 
 function AddCourse() {
+  const [loading,setLoading] = useState(false)
   const [formData, setFormData] = useState({
     name: "",
     title: "",
@@ -19,12 +21,22 @@ function AddCourse() {
   };
 
   const handleSubmit = (e) => {
+    setLoading(true)
     e.preventDefault();
-    axios.post(`http://localhost:4000/books`, formData)
+    axios.post(`https://book-store-backend-ten.vercel.app/books`, formData)
     .then((response) => {
-      console.log(response);
+      toast.success("Added a new Book")
+      setLoading(false)
+      setFormData({
+        name:'',
+        title:'',
+        price:'',
+        category:'',
+        image:''
+      })
     }).catch(error=>{
         console.log(error)
+        toast.error("Failed Try again")
     })
 
     console.log(formData);
@@ -154,7 +166,9 @@ function AddCourse() {
             type="submit"
             className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-200"
           >
-            Add Book
+            {
+              loading? "Wait..." : "Add Book"
+            }
           </button>
         </div>
       </form>

@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {  getAllBooks } from "../features/bookSlice";
+import {  deleteBook, getAllBooks } from "../features/bookSlice";
 import { deleteUser } from "../features/loginSlice";
 
 function ViewAllCourse() {
@@ -22,7 +22,7 @@ function ViewAllCourse() {
   const handleDelete = (id) => {
     console.log(id);
     
-    dispatch(deleteUser(id));
+    dispatch(deleteBook(id));
   };
 
   return (

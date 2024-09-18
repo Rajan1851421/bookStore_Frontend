@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import Freebook from "./Freebook";
 import  { useDispatch } from "react-redux"
 import { getAllBooks } from "../features/bookSlice";
+import { Link } from "react-router-dom";
 
 function Banner() {
   const dispatch = useDispatch()
@@ -59,7 +60,7 @@ function Banner() {
                 ></path>
               </svg>
               
-              <span className="relative">Call Us</span>
+              <Link to='/contact' className="relative">Call Us</Link>
             </button>
           </div>
         </div>

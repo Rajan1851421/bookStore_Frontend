@@ -17,7 +17,7 @@ export const getAllBooks = createAsyncThunk(
 
 // delete single book by id
 export const deleteBook = createAsyncThunk(
-  "book/deleteBook",
+  "deleteBook",
   async (id, { rejectWithValue }) => {
     try {
       await axios.delete(`https://book-store-backend-ten.vercel.app/books/${id}`);

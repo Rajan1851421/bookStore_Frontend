@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import axios from "axios";
 import { useDispatch } from "react-redux";
-
+import { toast } from "react-toastify";
 const RegisterForm = () => {
   const dispatch = useDispatch()
   const [formData, setFormData] = useState({
@@ -28,6 +28,7 @@ const RegisterForm = () => {
       .then((response) => {
         console.log(response);
         setSuccessMessage("Registration successful!");
+        toast.success("Registration successful!")
         setErrorMessage(""); // Clear error message
         setLoading(false)
         setFormData({
