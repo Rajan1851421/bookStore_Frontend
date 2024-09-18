@@ -14,7 +14,7 @@ export const getAllBooks = createAsyncThunk(
   }
 );
 
-// delete single book by id
+
 // delete single book by id
 export const deleteBook = createAsyncThunk(
   "book/deleteBook",

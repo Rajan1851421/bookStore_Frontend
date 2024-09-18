@@ -6,7 +6,7 @@ export const getAllusers = createAsyncThunk(
   "getAllusers",
   async (_, { rejectWithValue }) => {
     try {
-      const response = await axios.get(`http://localhost:4000/user/`);
+      const response = await axios.get(`https://book-store-backend-ten.vercel.app/user/`);
       return response.data;
     } catch (error) {
       return rejectWithValue(error.message);
@@ -19,7 +19,7 @@ export const deleteUser = createAsyncThunk(
   "deleteUser",
   async (id, { rejectWithValue }) => {
     try {
-      await axios.delete(`http://localhost:4000/user/${id}`);
+      await axios.delete(`https://book-store-backend-ten.vercel.app/user/${id}`);
       return id; // Return the ID of the deleted book
     } catch (error) {
       return rejectWithValue(error.message);

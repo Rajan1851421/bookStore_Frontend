@@ -24,7 +24,7 @@ const RegisterForm = () => {
     setLoading(true)
     e.preventDefault();
     axios
-      .post(`http://localhost:4000/register`, formData)
+      .post(`https://book-store-backend-ten.vercel.app/register`, formData)
       .then((response) => {
         console.log(response);
         setSuccessMessage("Registration successful!");

@@ -19,7 +19,7 @@ function Login() {
   const handleSubmit = (e) => {
     e.preventDefault();
     setLoading(true)
-    axios.post(`http://localhost:4000/login/`, { email, password })
+    axios.post(`https://book-store-backend-ten.vercel.app/login/`, { email, password })
       .then((response) => {
         console.log(response.data);
         dispatch(setToken(response.data.token))
