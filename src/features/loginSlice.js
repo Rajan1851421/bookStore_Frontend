@@ -6,7 +6,9 @@ export const getAllusers = createAsyncThunk(
   "getAllusers",
   async (_, { rejectWithValue }) => {
     try {
-      const response = await axios.get(`https://book-store-backend-ten.vercel.app/user/`);
+      const response = await axios.get(
+        `https://book-store-backend-ten.vercel.app/user/`
+      );
       return response.data;
     } catch (error) {
       return rejectWithValue(error.message);
@@ -19,7 +21,9 @@ export const deleteUser = createAsyncThunk(
   "deleteUser",
   async (id, { rejectWithValue }) => {
     try {
-      await axios.delete(`https://book-store-backend-ten.vercel.app/user/${id}`);
+      await axios.delete(
+        `https://book-store-backend-ten.vercel.app/user/${id}`
+      );
       return id; // Return the ID of the deleted book
     } catch (error) {
       return rejectWithValue(error.message);
@@ -48,6 +52,7 @@ export const loginSlice = createSlice({
     logout: (state) => {
       state.token_login = null;
       state.status = "Logout Sucessfully";
+      state.role = "";
     },
     userType: (state, action) => {
       state.role = action.payload;
@@ -73,10 +78,12 @@ export const loginSlice = createSlice({
       })
       .addCase(deleteUser.fulfilled, (state, action) => {
         state.loading = false;
-        state.status = 'deleted';
+        state.status = "deleted";
         // Remove the book by filtering the one that matches the deleted book's ID
-        state.All_users = state.All_users.filter(user => user._id !== action.payload);
-    })
+        state.All_users = state.All_users.filter(
+          (user) => user._id !== action.payload
+        );
+      })
       .addCase(deleteUser.rejected, (state, action) => {
         state.loading = false;
         state.status = "failed";
